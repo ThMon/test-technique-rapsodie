@@ -1,24 +1,67 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { ReactElement } from "react";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Container from "./components/layout/container";
+import HocManager from "./lib/helpers/HocManager";
+import Home from "./components/home";
+import Label from "./components/label";
+import Signature from "./components/signature";
+import Chemar from "./components/chemar";
+import Artiste from "./components/artiste";
+import { Provider } from "react-redux";
+import { store } from "./lib/redux";
+import GlobalStyle from "./style/global";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyle />
+      <Provider store={store}>
+        <Container>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HocManager>
+                  <Home />
+                </HocManager>
+              }
+            />
+            <Route
+              path="/label"
+              element={
+                <HocManager>
+                  <Label />
+                </HocManager>
+              }
+            />
+            <Route
+              path="/signature"
+              element={
+                <HocManager>
+                  <Signature />
+                </HocManager>
+              }
+            />
+            <Route
+              path="/chemar"
+              element={
+                <HocManager>
+                  <Chemar />
+                </HocManager>
+              }
+            />
+            <Route
+              path="/artiste/:id"
+              element={
+                <HocManager>
+                  <Artiste />
+                </HocManager>
+              }
+            />
+          </Routes>
+        </Container>
+      </Provider>
     </div>
   );
 }
